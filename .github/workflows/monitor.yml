@@ -1,0 +1,60 @@
+name: 영화 예매 오픈 감시
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+      timezone: "Asia/Seoul"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cinema-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      MOVIE_TITLE: ${{ vars.MOVIE_TITLE }}
+      KAKAO_REST_API_KEY: ${{ secrets.KAKAO_REST_API_KEY }}
+      KAKAO_CLIENT_SECRET: ${{ secrets.KAKAO_CLIENT_SECRET }}
+      TOKEN_ENCRYPTION_PASSWORD: ${{ secrets.TOKEN_ENCRYPTION_PASSWORD }}
+
+    steps:
+      - name: 프로그램 내려받기
+        uses: actions/checkout@v4
+
+      - name: 실행 환경 준비
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 프로그램 설치
+        run: npm ci
+
+      - name: 브라우저 설치
+        run: npx playwright install --with-deps chromium
+
+      - name: 카카오 토큰 복호화
+        run: npm run token:decrypt
+
+      - name: 영화관 확인
+        run: node src/index.js --once --include-browser-only --movie "$MOVIE_TITLE"
+
+      - name: 토큰 다시 암호화
+        if: always()
+        run: npm run token:encrypt
+
+      - name: 중복 알림 기록 저장
+        if: always()
+        run: |
+          git config user.name "cinema-monitor"
+          git config user.email "cinema-monitor@users.noreply.github.com"
+          git add -f data/kakao-token.enc
+          if [ -f data/state.json ]; then git add -f data/state.json; fi
+          git diff --cached --quiet || git commit -m "감시 상태 자동 저장"
+          git push
