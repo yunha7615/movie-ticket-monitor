@@ -1,0 +1,48 @@
+{
+  "movieTitle": "",
+  "pollIntervalSeconds": 180,
+  "lookaheadDays": 14,
+  "timeRange": {
+    "start": "11:00",
+    "end": "18:00"
+  },
+  "weekdays": [0, 6],
+  "theaters": [
+    {
+      "provider": "cgv",
+      "name": "왕십리",
+      "siteNo": "0074",
+      "format": "IMAX",
+      "monitorMode": "codex-browser"
+    },
+    {
+      "provider": "cgv",
+      "name": "용산아이파크몰",
+      "siteNo": "0013",
+      "format": "IMAX",
+      "monitorMode": "codex-browser"
+    },
+    {
+      "provider": "cgv",
+      "name": "천호",
+      "siteNo": "0199",
+      "format": "IMAX",
+      "monitorMode": "codex-browser"
+    },
+    {
+      "provider": "megabox",
+      "name": "남양주현대아울렛스페이스원",
+      "alias": "다산메가박스",
+      "branchNo": "0019",
+      "format": "DOLBY CINEMA",
+      "monitorMode": "local"
+    },
+    {
+      "provider": "megabox",
+      "name": "하남스타필드",
+      "branchNo": "4651",
+      "format": "DOLBY CINEMA",
+      "monitorMode": "local"
+    }
+  ]
+}

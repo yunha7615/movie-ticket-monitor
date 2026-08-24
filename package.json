@@ -1,0 +1,23 @@
+{
+  "name": "premium-cinema-open-monitor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CGV IMAX / Megabox Dolby Cinema weekend opening monitor",
+  "scripts": {
+    "start": "node src/index.js",
+    "check": "node src/index.js --once --dry-run",
+    "set-movie": "node src/set-movie.js",
+    "kakao:login": "node src/kakao-auth.js",
+    "token:encrypt": "node src/token-crypto.js encrypt",
+    "token:decrypt": "node src/token-crypto.js decrypt",
+    "notify-one": "node src/notify-one.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright-core": "^1.55.0"
+  }
+}
