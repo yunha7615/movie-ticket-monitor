@@ -79,6 +79,7 @@ Codex 예약 작업도 PC와 Codex 앱이 열려 있어야 지속 실행됩니�
 
 필요한 저장소 설정:
 
+- 변수 `MONITOR_ENABLED`: 설정 완료 후 `true`로 변경
 - 변수 `MOVIE_TITLE`: 감시할 영화 제목
 - 비밀 값 `KAKAO_REST_API_KEY`: 카카오 REST API 키
 - 비밀 값 `KAKAO_CLIENT_SECRET`: 카카오 클라이언트 시크릿
